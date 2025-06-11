@@ -1,23 +1,24 @@
 # Use a lightweight JDK base image
 FROM eclipse-temurin:17-jdk-jammy
 
-# Set the working directory
 WORKDIR /app
 
-# Copy the Maven build files first (to leverage Docker cache)
+# Copy Maven wrapper and make it executable
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 
+# ✅ Make the Maven wrapper executable
+RUN chmod +x mvnw
+
 # Build dependencies
 RUN ./mvnw dependency:go-offline -B
 
-# Copy the rest of the application code
+# Copy the rest of the application
 COPY src ./src
 
 # Build the application
 RUN ./mvnw clean package -DskipTests
 
-# Run the Spring Boot app
+# Run the app
 CMD ["java", "-jar", "target/*.jar"]
-#gg
