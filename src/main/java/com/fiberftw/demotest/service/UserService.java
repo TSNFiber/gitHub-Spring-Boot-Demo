@@ -37,4 +37,8 @@ public class UserService {
         }
         return optional;
     }
+    public User createUser(User user) {
+        userList.add(user);
+        return user;
+    }
 }
