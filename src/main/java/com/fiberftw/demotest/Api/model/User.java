@@ -1,24 +1,33 @@
 package com.fiberftw.demotest.Api.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "users")
 public class User {
-    private int id;
+
+    @Id
+    private String id;
+
     private String name;
     private int age;
     private String email;
 
-    public User(int id, String name, int age, String email) {
-        this.id = id;
+    public User() {}
+
+    public User(String name, int age, String email) {
         this.name = name;
         this.age = age;
         this.email = email;
     }
 
-    public int getId() {
+    // Getters and setters...
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
