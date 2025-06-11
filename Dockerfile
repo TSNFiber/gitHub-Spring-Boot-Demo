@@ -20,3 +20,4 @@ RUN ./mvnw clean package -DskipTests
 
 # Run the Spring Boot app
 CMD ["java", "-jar", "target/*.jar"]
+#gg
