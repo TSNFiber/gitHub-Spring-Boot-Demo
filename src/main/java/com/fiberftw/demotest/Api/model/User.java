@@ -1,33 +1,49 @@
 package com.fiberftw.demotest.Api.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@Document(collection = "users")
+@Entity
+@Table(name = "users") // optional: specifies the table name in the database
 public class User {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment ID
+    private int id;
 
     private String name;
     private int age;
     private String email;
 
-    public User() {}
+    // Default constructor required by JPA
+    public User() {
+    }
 
+    // Optional: convenience constructor without ID (used for inserts)
     public User(String name, int age, String email) {
         this.name = name;
         this.age = age;
         this.email = email;
     }
 
-    // Getters and setters...
+    // Optional: full constructor (used internally/testing)
+    public User(int id, String name, int age, String email) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.email = email;
+    }
 
-    public String getId() {
+    // Getters & Setters
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

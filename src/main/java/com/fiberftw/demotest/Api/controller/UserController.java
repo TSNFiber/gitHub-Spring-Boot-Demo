@@ -5,28 +5,27 @@ import com.fiberftw.demotest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @GetMapping("/{id}")
-    public User getUser(@PathVariable String id) {
-        return userService.getUserById(id).orElse(null);
+    @Autowired
+    public UserController(UserService userService){
+        this.userService = userService;
     }
 
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable Integer id){
+        Optional<User> user = userService.getUser(id);
+        return user.orElse(null);
     }
 
     @PostMapping
     public User addUser(@RequestBody User user) {
-        return userService.saveUser(user);
+        return userService.addUser(user);
     }
 }
